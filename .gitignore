@@ -1,0 +1,10 @@
+# 解包资源与转换输出不入库（体积大、且属于游戏原始资源）
+RESOURCE/
+OUT/
+
+# Python
+__pycache__/
+*.pyc
+
+# 本地临时脚本
+tools/_*.py
