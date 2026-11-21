@@ -74,7 +74,7 @@ def _api_once(path, method="GET", data=None, token="", raw=False):
 # ------------------------------------------------------------------ 文件收集
 def collect(include_images=False):
     files = []
-    for name in ("README.md", "convert_all.ps1", ".gitignore"):
+    for name in ("README.md", "LICENSE", "convert_all.ps1", ".gitignore"):
         p = os.path.join(ROOT, name)
         if os.path.exists(p):
             files.append((name, p))
