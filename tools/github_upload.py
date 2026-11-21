@@ -114,11 +114,18 @@ def main(argv=None):
     ap.add_argument("--description",
                     default="机甲世纪/AOA (VoyageEngine) 的 .gm2 模型与 .tga.tx 贴图解析、转换、装配与查看工具")
     ap.add_argument("--update", action="store_true", help="覆盖已存在的文件")
+    ap.add_argument("--only", default="", help="只上传指定路径(逗号分隔), 如 README.md")
     ap.add_argument("--images", action="store_true", help="顺带上传 OUT 下的两张截图到 docs/")
     ap.add_argument("--dry-run", action="store_true")
     args = ap.parse_args(argv)
 
     files = collect(include_images=args.images)
+    if args.only:
+        want = {s.strip() for s in args.only.split(",") if s.strip()}
+        files = [f for f in files if f[0] in want]
+        if not files:
+            print("--only 没有匹配到任何文件", file=sys.stderr)
+            return 1
     print("待上传 %d 个文件:" % len(files))
     for path, local in files:
         print("   %-28s %8d B" % (path, os.path.getsize(local)))
