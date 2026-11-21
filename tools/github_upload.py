@@ -23,6 +23,7 @@ import json
 import os
 import re
 import sys
+import time
 import urllib.error
 import urllib.request
 
@@ -34,7 +35,19 @@ NOTE_LINE = ("> 本仓库只包含脚本与文档；`RESOURCE\\`（解包资源�
 
 
 # ------------------------------------------------------------------ HTTP
-def api(path, method="GET", data=None, token="", raw=False):
+def api(path, method="GET", data=None, token="", raw=False, retries=3):
+    """带重试的 API 调用(网络抖动/SSL EOF 在本机到 GitHub 的链路上偶发)"""
+    last = (-1, "not tried", {})
+    for attempt in range(retries):
+        last = _api_once(path, method, data, token, raw)
+        code = last[0]
+        if code != -1:
+            return last
+        time.sleep(0.8 * (attempt + 1))
+    return last
+
+
+def _api_once(path, method="GET", data=None, token="", raw=False):
     url = path if path.startswith("http") else API + path
     body = json.dumps(data).encode("utf-8") if data is not None else None
     req = urllib.request.Request(url, data=body, method=method)
