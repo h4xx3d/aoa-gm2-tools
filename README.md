@@ -326,7 +326,17 @@ D3DFORMAT 取值（本例数据中出现过的）：
 │  ├─ gm2_to_obj.py              .gm2 → OBJ + MTL（单件）
 │  ├─ render_preview.py          单个模型软光栅预览（纯标准库版）
 │  ├─ render_all.py              批量预览 + 生成 index.html
-│  └─ check_obj.py               OBJ/MTL 自洽性与贴图引用检查
+│  ├─ check_obj.py               OBJ/MTL 自洽性与贴图引用检查
+│  └─ github_upload.py           把脚本同步到 GitHub（只传脚本与文档）
 ├─ convert_all.ps1               一键跑完转换全流程
+├─ LICENSE                       MIT 许可证
 └─ README.md                     本文件
 ```
+
+---
+
+## 8. 许可证
+
+本项目脚本以 **MIT License** 发布，全文见 [LICENSE](LICENSE)。可以自由使用、修改、分发、商用，保留版权与许可声明即可。
+
+注意：MIT 只覆盖本仓库的脚本与文档。`RESOURCE\` 里的 `.gm2` / `.tga.tx` 是游戏原始资源，不在本仓库内，也不在本许可范围内，其权利归原厂商所有；用这些脚本处理你自己合法持有的游戏文件，请自行确认当地法律与用户协议的边界。
